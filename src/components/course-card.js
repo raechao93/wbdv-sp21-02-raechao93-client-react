@@ -24,7 +24,7 @@ const CourseComponent =(
 
 // const CourseCard = ({course}) =>
     return (
-        <div className="col-md-4 col-lg-3 col-sm-6 col-xs-12">
+        <div className="col-md-4 col-lg-3 col-sm-6 col-xs-12 col-xl-2">
             <div className="mt-3">
                 <div className="card" style={{"width": "20rem"}}>
                     <div className="card-body">

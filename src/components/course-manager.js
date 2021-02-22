@@ -51,7 +51,7 @@ class CourseManager extends React.Component{
                     course
                 ]
             })))
-        this.courseName.value = ''
+        this.setState({titile:""})
 
         // this.state.courses.push(newCourse)
         // this.setState(this.state)
