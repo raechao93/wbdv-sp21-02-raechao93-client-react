@@ -1,14 +1,17 @@
 import React from 'react'
 import {Link} from "react-router-dom";
+import CourseEditorLayout from "./course-editor-layout";
 
 
 const CourseEditor = ({history}) =>
     <div>
-        <h2>
+        <h3>
              Course Editor
-            <i onClick={() => history.goBack()}
-               className="fas fa-backward float-left"></i>
-        </h2>
+            <a onClick={() => history.goBack()}
+               className="fas fa-backward float-left">Back</a>
+            <CourseEditorLayout/>
+
+        </h3>
     </div>
 
 // const CourseEditor = () => {
