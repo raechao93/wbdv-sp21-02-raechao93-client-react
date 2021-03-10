@@ -11,6 +11,10 @@ export const createLessonForModule = (moduleId, lesson) =>
     })
         .then(response => response.json())
 
+export const clearLesson = (moduleId) =>
+    fetch(`${MODULES_URL}/${moduleId}/lessons`)
+        .then(response => response.json())
+
 export const findLessonsForModule = (moduleId) =>
     fetch(`${MODULES_URL}/${moduleId}/lessons`)
         .then(response => response.json())
@@ -33,5 +37,6 @@ export const updateLessonForModule = (lessonId, lesson) =>
 
 export default {
     findLessonsForModule, createLessonForModule,
-    deleteLessonForModule,updateLessonForModule
+    deleteLessonForModule,updateLessonForModule,
+    clearLesson
 }

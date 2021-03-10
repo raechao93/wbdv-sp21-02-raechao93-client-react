@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
 import {connect} from "react-redux";
-import EditableItem from "./editable-item";
+import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom";
-import topicService from "../services/topic-service";
-import lessonService from "../services/lesson-service";
+import topicService from "../../services/topic-service";
+import lessonService from "../../services/lesson-service";
 
 
 const TopicPills = (
@@ -16,13 +16,16 @@ const TopicPills = (
         findTopicsForLesson,
         createTopic,
         deleteTopic,
-        updateTopic
+        updateTopic,
+        clearTopic
     }) => {
-    const {courseId, moduleId, lessonId, topicId} = useParams();
+    const {courseId, moduleId, lessonId, topicId,layout} = useParams();
     useEffect(() => {
         console.log("LOAD TOPICS FOR LESSON: " + lessonId)
         if(lessonId !== "undefined" && typeof lessonId !== "undefined") {
             findTopicsForLesson(lessonId)
+        }else{
+            clearTopic(lessonId)
         }
     }, [lessonId])
     return(
@@ -33,7 +36,7 @@ const TopicPills = (
                     topics.map(topic =>
                         <li className="nav-item">
                             <EditableItem
-                                to={`/courses/editor/${courseId}/${moduleId}/${lessonId}/${topic._id}`}
+                                to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lessonId}/topics/${topic._id}`}
                                 deleteItem={deleteTopic}
                                 updateItem={updateTopic}
                                 active={topic._id === topicId}
@@ -85,6 +88,12 @@ const dtpm = (dispatch) => ({
                 type: "UPDATE_TOPIC",
                 topic
             })),
+    clearTopic: (lessonId) =>
+        topicService.clearTopic(lessonId)
+            .then(topics => dispatch({
+                type: "FIND_TOPICS",
+                topics:[]
+            }))
 })
 
 export default connect(stpm, dtpm)(TopicPills)

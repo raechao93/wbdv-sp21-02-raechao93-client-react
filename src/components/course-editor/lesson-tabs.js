@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react'
 import {connect} from "react-redux";
-import EditableItem from "./editable-item";
+import EditableItem from "../editable-item";
 import {useParams} from "react-router-dom";
-import lessonService from '../services/lesson-service'
-import moduleService from "../services/module-service";
+import lessonService from '../../services/lesson-service'
+import moduleService from "../../services/module-service";
 
 const LessonTabs = (
     {
@@ -15,13 +15,16 @@ const LessonTabs = (
         findLessonsForModule,
         createLesson,
         deleteLesson,
-        updateLesson
+        updateLesson,
+        clearLesson
     }) => {
-    const {courseId, moduleId, lessonId} = useParams();
+    const {courseId, moduleId, lessonId,layout} = useParams();
     useEffect(() => {
         console.log("LOAD LESSONS FOR MODULE: " + moduleId)
         if(moduleId !== "undefined" && typeof moduleId !== "undefined") {
             findLessonsForModule(moduleId)
+        }else{
+            clearLesson(moduleId)
         }
     }, [moduleId])
     return(
@@ -33,7 +36,7 @@ const LessonTabs = (
                         <li className="nav-item">
                             <EditableItem
                                 active={lesson._id === lessonId}
-                                to={`/courses/editor/${courseId}/${moduleId}/${lesson._id}`}
+                                to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lesson._id}`}
                                 deleteItem={deleteLesson}
                                 updateItem={updateLesson}
                                 item={lesson}/>
@@ -84,6 +87,13 @@ const dtpm = (dispatch) => ({
                 type: "UPDATE_LESSON",
                 lesson
             })),
+    clearLesson: (moduleId) => {
+        lessonService.clearLesson(moduleId)
+            .then(lessons => dispatch({
+                type: "FIND_LESSONS",
+                lessons:[]
+            }))
+    },
 })
 
 export default connect(stpm, dtpm)(LessonTabs)

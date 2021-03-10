@@ -38,7 +38,7 @@ const CourseComponent =(
                                  src={`https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqzaE-yVJFUm_0dmcYTWdYn-Oe-0rFaxi76A&usqp=CAU`}/>
                         </p>
                         {
-                            !editing && <Link to="/courses/editor" className="btn btn-primary">
+                            !editing && <Link to={`/courses/grid/edit/${course._id}`} className="btn btn-primary">
                                 {title}
                             </Link>
                         }

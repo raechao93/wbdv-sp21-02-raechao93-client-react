@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {Link} from "react-router-dom";
-import {updateCourse} from "../services/course-service";
+import {updateCourse} from "../../services/course-service";
 
 const CourseRow = (
     {
@@ -28,7 +28,7 @@ const CourseRow = (
         <td>
             {
                 !editing &&
-                <Link to={`/courses/editor/${course._id}`}>
+                <Link to={`/courses/table/edit/${course._id}`}>
                 {title}
                 </Link>
             }

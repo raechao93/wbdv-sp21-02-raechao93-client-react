@@ -31,7 +31,12 @@ export const updateTopicForLesson  = (topicId, topic) =>
     })
         .then(response => response.json())
 
+export const clearTopic = (lessonId) =>
+    fetch(`${LESSONS_URL}/${lessonId}/topics`)
+        .then(response => response.json())
+
 export default {
     findTopicsForLesson, createTopicForLesson,
-    deleteTopicForLesson,updateTopicForLesson
+    deleteTopicForLesson,updateTopicForLesson,
+    clearTopic
 }
