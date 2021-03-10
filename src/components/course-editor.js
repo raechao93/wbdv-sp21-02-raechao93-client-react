@@ -1,22 +1,47 @@
 import React from 'react'
-import {Link} from "react-router-dom";
-import CourseEditorLayout from "./course-editor-layout";
+import {Link, useParams} from "react-router-dom";
+import moduleReducer from "../reducers/modules-reducer";
+import lessonReducer from "../reducers/lesson-reducer";
+import topicReducer from "../reducers/topic-reducer";
+import {combineReducers, createStore} from "redux";
+import {Provider} from "react-redux";
+import ModuleList from "./module-list";
+import LessonTabs from "./lesson-tabs";
+import TopicPills from "./topic-pills";
 
+const reducer = combineReducers({
+    moduleReducer: moduleReducer,
+    lessonReducer: lessonReducer,
+    topicReducer: topicReducer,
+})
 
-const CourseEditor = ({history}) =>
-    <div>
-        <h3>
-             Course Editor
-            <a onClick={() => history.goBack()}
-               className="fas fa-backward float-left">Back</a>
-            <CourseEditorLayout/>
+const store = createStore(reducer)
 
-        </h3>
-    </div>
+const CourseEditor = ({history}) => {
+    const {courseId, moduleId} = useParams();
+    return (
+        <Provider store={store}>
+            <div>
+                <h2>
+                    <Link to="/courses/table">
+                        <i className="fas fa-arrow-left"></i>
+                    </Link>
+                    Course Editor {courseId} {moduleId}
+                    <i onClick={() => history.goBack()}
+                       className="fas fa-times float-right"></i>
+                    {/*<i onClick={() => props.history.goBack()}*/}
+                    {/*   className="fas fa-times float-right"></i>*/}
+                </h2>
+                <div className="row">
+                    <div className="col-4">
+                        <ModuleList/>
+                    </div>
+                    <div className="col-8">
+                        <LessonTabs/>
+                        <TopicPills/>
+                    </div>
+                </div>
+            </div>
+        </Provider>)}
 
-// const CourseEditor = () => {
-//     return(
-//         <h1>Course Editor</h1>
-//     )
-// }
 export default CourseEditor

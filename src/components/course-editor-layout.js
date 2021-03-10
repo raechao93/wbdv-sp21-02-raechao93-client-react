@@ -2,7 +2,6 @@ import React from 'react'
 
 const CourseEditorLayout = () =>
 
-
 <div className="container-fluid">
     <div className="row">
         <div className="col-4">
